@@ -8,14 +8,7 @@
 package pl.medicaap.tomaszwisniowski;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.medicaap.tomaszwisniowski.DTO_model.*;
 import pl.medicaap.tomaszwisniowski.exception.ResourceNotFoundException;
 import pl.medicaap.tomaszwisniowski.model.*;
@@ -25,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequestMapping("api/v1")
 @RestController
 public class ApplicationController {
 
@@ -60,7 +54,7 @@ public class ApplicationController {
 
 
     @PostMapping("/doctors")
-    public DTO_Doctor addDoctor(@RequestBody @Valid DTO_Doctor dto_doctor) {
+    public DTO_Doctor addDoctor(@RequestBody DTO_Doctor dto_doctor) {
         return asDto(
                 doctorService.addDoctor(
                         dto_doctor.getMedical_license_number(), dto_doctor.getFirst_name(), dto_doctor.getLast_name(), dto_doctor.getDate_of_birth(), dto_doctor.getTel(),
@@ -70,7 +64,7 @@ public class ApplicationController {
 
     @PutMapping("/doctors/{id}")
     public DTO_Doctor updateDoctor(@PathVariable("id") Integer id,
-                                      @RequestBody @Valid DTO_Doctor dto_doctor) {
+                                      @RequestBody DTO_Doctor dto_doctor) {
         return doctorService
                 .updateDoctor(
                         id, dto_doctor.getMedical_license_number(), dto_doctor.getFirst_name(), dto_doctor.getLast_name(), dto_doctor.getDate_of_birth(), dto_doctor.getTel(),
@@ -120,7 +114,7 @@ public class ApplicationController {
 
 
     @PostMapping("/nurses")
-    public DTO_Nurse addNurse(@RequestBody @Valid DTO_Nurse dto_nurse) {
+    public DTO_Nurse addNurse(@RequestBody DTO_Nurse dto_nurse) {
         return asDto(
                 nurseService.addNurse(
                         dto_nurse.getMedical_license_number(), dto_nurse.getFirst_name(), dto_nurse.getLast_name(), dto_nurse.getDate_of_birth(), dto_nurse.getTel(),
@@ -130,7 +124,7 @@ public class ApplicationController {
 
     @PutMapping("/nurses/{id}")
     public DTO_Nurse updateNurse(@PathVariable("id") Integer id,
-                                   @RequestBody @Valid DTO_Nurse dto_nurse) {
+                                   @RequestBody DTO_Nurse dto_nurse) {
         return nurseService
                 .updateNurse(
                         id, dto_nurse.getMedical_license_number(), dto_nurse.getFirst_name(), dto_nurse.getLast_name(), dto_nurse.getDate_of_birth(), dto_nurse.getTel(),
@@ -180,7 +174,7 @@ public class ApplicationController {
 
 
     @PostMapping("/patients")
-    public DTO_Patient addPatient(@RequestBody @Valid DTO_Patient dto_patient) {
+    public DTO_Patient addPatient(@RequestBody DTO_Patient dto_patient) {
         return asDto(
                 patientService.addPatient(
                         dto_patient.getPesel(), dto_patient.getFirst_name(), dto_patient.getLast_name(), dto_patient.getDate_of_birth(), dto_patient.getTel(),
@@ -190,7 +184,7 @@ public class ApplicationController {
 
     @PutMapping("/patients/{id}")
     public DTO_Patient updatePatient(@PathVariable("id") Integer id,
-                                 @RequestBody @Valid DTO_Patient dto_patient) {
+                                 @RequestBody DTO_Patient dto_patient) {
         return patientService
                 .updatePatient(
                         id, dto_patient.getPesel(), dto_patient.getFirst_name(), dto_patient.getLast_name(), dto_patient.getDate_of_birth(), dto_patient.getTel(),
@@ -240,7 +234,7 @@ public class ApplicationController {
 
 
     @PostMapping("/patientsCards")
-    public DTO_PatientCard addPatientCard(@RequestBody @Valid DTO_PatientCard dto_patientCard) {
+    public DTO_PatientCard addPatientCard(@RequestBody  DTO_PatientCard dto_patientCard) {
         return asDto(
                 patientCardService.addPatientCard(
                         dto_patientCard.getInterview(), dto_patientCard.getPhysical_examination(), dto_patientCard.getDiagnosis(), dto_patientCard.getVisit_history(), dto_patientCard.getPatient_id()));
@@ -249,7 +243,7 @@ public class ApplicationController {
 
     @PutMapping("/patientsCards/{id}")
     public DTO_PatientCard updatePatientCard(@PathVariable("id") Integer id,
-                                     @RequestBody @Valid DTO_PatientCard dto_patientCard) {
+                                     @RequestBody DTO_PatientCard dto_patientCard) {
         return patientCardService
                 .updatePatientCard(
                         id, dto_patientCard.getInterview(), dto_patientCard.getPhysical_examination(), dto_patientCard.getDiagnosis(), dto_patientCard.getVisit_history())
@@ -294,7 +288,7 @@ public class ApplicationController {
 
 
     @PostMapping("/patientsRegistration")
-    public DTO_PatientRegistration addPatientRegistration(@RequestBody @Valid DTO_PatientRegistration dto_patientRegistration) {
+    public DTO_PatientRegistration addPatientRegistration(@RequestBody DTO_PatientRegistration dto_patientRegistration) {
         return asDto(
                 patientRegistrationService.addPatientRegistration(
                         dto_patientRegistration.getDate_of_visit(), dto_patientRegistration.getDate_of_registration(), dto_patientRegistration.getPatient_id()));
@@ -302,7 +296,7 @@ public class ApplicationController {
 
 
     @PutMapping("/patientsRegistration/{id}")
-    public DTO_PatientRegistration updatePatientRegistration(@PathVariable("id") Integer id, @RequestBody @Valid DTO_PatientRegistration dto_patientRegistration) {
+    public DTO_PatientRegistration updatePatientRegistration(@PathVariable("id") Integer id, @RequestBody DTO_PatientRegistration dto_patientRegistration) {
         return patientRegistrationService
                 .updatePatientRegistration(
                         id, dto_patientRegistration.getDate_of_visit(), dto_patientRegistration.getDate_of_registration())
